@@ -11,7 +11,7 @@ if readlink /proc/$$/exe | grep -q "dash"; then
 	exit
 fi
 
-# Discard stdin. Needed when running from an one-liner which includes a newline
+# Discard stdin. Needed when running from an one-liner which includes a newlinef
 read -N 999999 -t 0.001
 
 # Detect OpenVZ 6
@@ -163,7 +163,7 @@ public_ip="opvpncontainer.local"
 # 		echo "$protocol: invalid selection."
 # 		read -p "Protocol [1]: " protocol
 # 	done
-        protocol = 1
+        protocol="1"
 	case "$protocol" in
 		1|"") 
 		protocol=udp
