@@ -116,7 +116,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 # 		done
 # 		[[ -z "$ip_number" ]] && ip_number="1"
 # 		ip=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}' | sed -n "$ip_number"p)
-		ip = "127.0.0.1"
+		ip="127.0.0.1"
 	fi
 	# If $ip is a private IP address, the server must be behind NAT
 	if echo "$ip" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
@@ -124,7 +124,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		echo "This server is behind NAT. What is the public IPv4 address or hostname?"
 		# Get public IP and sanitize with grep
 		get_public_ip=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<< "$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
-		public_ip = "127.0.0.1"
+		public_ip="127.0.0.1"
 # 		
 "Public IPv4 address / hostname [$get_public_ip]: " public_ip
 # 		# If the checkip service is unavailable and user didn't provide input, ask again
@@ -149,7 +149,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 # 			echo "$ip6_number: invalid selection."
 # 			read -p "IPv6 address [1]: " ip6_number
 # 		done
-		ip6_number = "1"
+		ip6_number="1"
 		[[ -z "$ip6_number" ]] && ip6_number="1"
 		ip6=$(ip -6 addr | grep 'inet6 [23]' | cut -d '/' -f 1 | grep -oE '([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}' | sed -n "1"p)
 	fi
@@ -188,7 +188,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	echo "   4) OpenDNS"
 	echo "   5) Quad9"
 	echo "   6) AdGuard"
-	dns = 3
+	dns="3"
 # 	read -p "DNS server [1]: " dns
 # 	until [[ -z "$dns" || "$dns" =~ ^[1-6]$ ]]; do
 # 		echo "$dns: invalid selection."
@@ -197,7 +197,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	echo
 	echo "Enter a name for the first client:"
 # 	read -p "Name [client]: " unsanitized_client
-        unsanitized_client = "local_ovpn_container_client"
+        unsanitized_client="local_ovpn_container_client"
 	# Allow a limited set of characters to avoid conflicts
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	[[ -z "$client" ]] && client="client"
