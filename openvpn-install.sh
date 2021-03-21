@@ -116,17 +116,17 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 # 		done
 # 		[[ -z "$ip_number" ]] && ip_number="1"
 # 		ip=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}' | sed -n "$ip_number"p)
-		ip="127.0.0.1"
-	fi
-	# If $ip is a private IP address, the server must be behind NAT
-	if echo "$ip" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
-		echo
-		echo "This server is behind NAT. What is the public IPv4 address or hostname?"
-		# Get public IP and sanitize with grep
-		get_public_ip=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<< "$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
-		public_ip="127.0.0.1"
+# 		ip="openvpn.local"
+# 	fi
+# 	# If $ip is a private IP address, the server must be behind NAT
+# 	if echo "$ip" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
+# 		echo
+# 		echo "This server is behind NAT. What is the public IPv4 address or hostname?"
+# 		# Get public IP and sanitize with grep
+# 		get_public_ip=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<< "$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
+public_ip="opvpncontainer.local"
 # 		
-"Public IPv4 address / hostname [$get_public_ip]: " public_ip
+"Public IPv4 address / hostname: " public_ip
 # 		# If the checkip service is unavailable and user didn't provide input, ask again
 # 		until [[ -n "$get_public_ip" || -n "$public_ip" ]]; do
 # 			echo "Invalid input."
