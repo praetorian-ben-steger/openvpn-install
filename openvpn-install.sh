@@ -133,6 +133,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 # 			read -p "Public IPv4 address / hostname: " public_ip
 # 		done
 # 		[[ -z "$public_ip" ]] && public_ip="$get_public_ip"
+		public_ip="127.0.0.1"
 	fi
 	# If system has a single IPv6, it is selected automatically
 	if [[ $(ip -6 addr | grep -c 'inet6 [23]') -eq 1 ]]; then
